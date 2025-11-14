@@ -5,7 +5,7 @@
 
 **VoxelLauncher** là **launcher Minecraft: Java Edition** được phát triển bởi người Việt và mã nguồn mở, hỗ trợ đầy đủ các tính năng giống Minecraft chính thức.
 
-> Phát triển bởi: **FoxStudio**  
+> Phát triển bởi: [**FoxStudio**](https://discord.gg/AbQHGuPKen)  
 > GitHub: [ShadowZa982/VoxelLauncher](https://github.com/ShadowZa982/VoxelLauncher)
 
 ---
