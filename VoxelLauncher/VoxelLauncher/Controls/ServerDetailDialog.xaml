@@ -1,0 +1,113 @@
+<!-- Controls/ServerDetailDialog.xaml -->
+<UserControl
+    x:Class="VoxelLauncher.Controls.ServerDetailDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:VoxelLauncher.Converters"
+    xmlns:controls="using:VoxelLauncher.Controls"
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
+    Background="#FF1E1E1E">
+
+    <UserControl.Resources>
+        <converters:OnlineStatusColorConverter x:Key="OnlineStatusColorConverter"/>
+    </UserControl.Resources>
+
+    <ScrollViewer MaxWidth="620" MaxHeight="720" Padding="0,10">
+        <Grid Background="#FF1E1E1E" Padding="32,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- === HEADER === -->
+            <Grid Grid.Row="0" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Ảnh server -->
+                <Border Width="130" Height="130"
+                        CornerRadius="16"
+                        Background="#FF2D2D2D"
+                        BorderBrush="#FF404040"
+                        BorderThickness="2">
+                    <Image Source="{Binding ImageUrl,
+                                   Converter={StaticResource ImageSourceConverter},
+                                   TargetNullValue='ms-appx:///Assets/Icons/vanilla.png'}"
+                           Stretch="UniformToFill"/>
+                </Border>
+
+                <!-- Thông tin chính -->
+                <StackPanel Grid.Column="1" Margin="24,0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding ServerName}"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               TextWrapping="Wrap"/>
+
+                    <TextBlock Text="{Binding OnlineStatus}"
+                               Foreground="{Binding CurrentUsers, Converter={StaticResource OnlineStatusColorConverter}}"
+                               FontSize="16"
+                               FontWeight="SemiBold"/>
+
+                    <TextBlock Text="{Binding PlayerText}"
+                               Foreground="#FF22C55E"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Margin="0,2,0,8"/>
+
+                    <!-- Progress bar -->
+                    <ProgressBar Value="{Binding OnlinePercentage}"
+                                 Maximum="100"
+                                 Height="6"
+                                 Foreground="#FF22C55E"
+                                 Background="#FF333333"
+                                 CornerRadius="3"
+                                 Margin="0,0,0,8"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- === THÔNG TIN CHI TIẾT === -->
+            <Grid Grid.Row="1" ColumnSpacing="24" RowSpacing="16" Margin="0,0,0,24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- IP PC -->
+                <controls:InfoBlock Grid.Column="0" Grid.Row="0" Label="IP PC" Value="{Binding IpPC}"/>
+                <!-- IP PE -->
+                <controls:InfoBlock Grid.Column="0" Grid.Row="1" Label="IP PE" Value="{Binding IpPE}"/>
+                <!-- Website -->
+                <controls:InfoBlock Grid.Column="0" Grid.Row="2" Label="Website" Value="{Binding Website}" IsHyperlink="True" Tapped="Website_Tapped"/>
+                <!-- Facebook -->
+                <controls:InfoBlock Grid.Column="0" Grid.Row="3" Label="Facebook" Value="{Binding Facebook}" IsHyperlink="True" Tapped="Facebook_Tapped"/>
+
+                <!-- Discord -->
+                <controls:InfoBlock Grid.Column="1" Grid.Row="0" Label="Discord" Value="{Binding Discord}" IsHyperlink="True" Tapped="Discord_Tapped"/>
+                <!-- Tags -->
+                <controls:InfoBlock Grid.Column="1" Grid.Row="1" Label="Tags" Value="{Binding Tags}"/>
+                <!-- Cập nhật -->
+                <controls:InfoBlock Grid.Column="1" Grid.Row="2" Label="Cập nhật" Value="{Binding LastUpdatedDisplay}"/>
+                <!-- Ping (giả lập) -->
+                <controls:InfoBlock Grid.Column="1" Grid.Row="3" Label="Ping" Value="~45ms" Foreground="#FF9CA3AF"/>
+            </Grid>
+
+            <!-- === NÚT COPY === -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="16" Margin="0,16">
+                <Button Content="Copy IP PC" Click="CopyIpPC_Click" Style="{StaticResource AccentButtonStyle}"/>
+                <Button Content="Copy IP PE" Click="CopyIpPE_Click" Style="{StaticResource AccentButtonStyle}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

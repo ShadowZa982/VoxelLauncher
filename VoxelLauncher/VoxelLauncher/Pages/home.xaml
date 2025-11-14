@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="VoxelLauncher.Pages.home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="24">
+        <!-- CARD LỚN -->
+        <Border Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="16"
+                VerticalAlignment="Top">
+
+            <Grid>
+                <!-- ẢNH NỀN VỚI BO GÓC -->
+                <Grid x:Name="ImageContainer">
+                    <!-- Ảnh 1 -->
+                    <Border x:Name="ImageBorder1"
+                            CornerRadius="16">
+                        <Image x:Name="Image1"
+                               Source="ms-appx:///Assets/backgrounds/bg.jpg"
+                               Stretch="UniformToFill" />
+                    </Border>
+
+                    <!-- Ảnh 2 -->
+                    <Border x:Name="ImageBorder2"
+                            CornerRadius="16"
+                            Opacity="0">
+                        <Image x:Name="Image2"
+                               Source="ms-appx:///Assets/backgrounds/bg2.jpg"
+                               Stretch="UniformToFill" />
+                    </Border>
+                </Grid>
+
+                <!-- Lớp phủ mờ + nội dung -->
+                <Border Background="#80000000" CornerRadius="16">
+                    <StackPanel VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="32"
+                                Spacing="8">
+                        <TextBlock Text="Voxel Launcher"
+                                   FontSize="36"
+                                   FontWeight="Bold"
+                                   Foreground="White" />
+                        <TextBlock Text="Explore infinite worlds."
+                                   FontSize="18"
+                                   Foreground="#CCCCCC" />
+
+                        <Button Content="Quản lý Profile"
+                            FontSize="16"
+                            Margin="0,16,0,0"
+                            Padding="16,8"
+                            Background="#6366F1"
+                            Foreground="White"
+                            CornerRadius="8"
+                            Click="ManageProfiles_Click"
+                            HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

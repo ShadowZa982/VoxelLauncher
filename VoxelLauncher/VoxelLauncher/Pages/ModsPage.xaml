@@ -1,0 +1,368 @@
+<Page
+    x:Class="VoxelLauncher.Pages.ModsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:VoxelLauncher.ViewModels"
+    xmlns:local="using:VoxelLauncher.Converters"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:ModsViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <!-- Converters -->
+        <local:StringFormatConverter x:Key="StringFormatConverter"/>
+        <local:DateTimeConverter x:Key="DateTimeConverter"/>
+
+        <!-- Styles -->
+        <Style x:Key="SourceButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FF2A2A2A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF444444"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="4,0"/>
+        </Style>
+
+        <Style x:Key="ActiveSourceButtonStyle" TargetType="Button" BasedOn="{StaticResource SourceButtonStyle}">
+            <Setter Property="Background" Value="#FFDC2626"/>
+            <Setter Property="BorderBrush" Value="#FFDC2626"/>
+        </Style>
+
+        <Style x:Key="FilterButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FF9CA3AF"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModCardStyle" TargetType="Grid">
+            <Setter Property="Background" Value="#FF1E1E1E"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Height" Value="120"/>
+        </Style>
+
+        <DataTemplate x:Key="VersionItemTemplate">
+            <Grid Padding="12,10" Background="#FF2A2A2A" CornerRadius="8" Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="5">
+                    <TextBlock Text="{Binding VersionNumber}" FontWeight="SemiBold" Foreground="White" FontSize="14"/>
+                    <TextBlock Text="{Binding DatePublished, Converter={StaticResource DateTimeConverter}}" FontSize="12" Foreground="#9CA3AF"/>
+                    <TextBlock Text="{Binding Downloads, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:N0} lượt tải'}"
+                       FontSize="12" Foreground="#22C55E"/>
+                </StackPanel>
+                <FontIcon Grid.Column="1" Glyph="&#xE896;" FontSize="16" Foreground="#22C55E" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="ActiveFilterButtonStyle" TargetType="Button" BasedOn="{StaticResource FilterButtonStyle}">
+            <Setter Property="Background" Value="#FFDC2626"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <!-- HEADER -->
+        <Grid Height="60" Background="#FF1E1E1E" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title + Source Buttons -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0">
+                <TextBlock Text="BROWSE MODS" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <Button x:Name="MenuToggleButton" Style="{StaticResource AccentButtonStyle}" Click="MenuToggleButton_Click" Margin="8,0,8,0">
+                    <FontIcon Glyph="&#xEA5B;"
+      FontFamily="Segoe MDL2 Assets"
+      FontSize="16"
+      Foreground="White"/>
+                </Button>
+                <Button x:Name="ManageButton" Content="Manage Mods" Style="{StaticResource AccentButtonStyle}" Margin="0,0,8,0" Click="ManageButton_Click"/>
+                <Button Content="VoxelX" Style="{StaticResource SourceButtonStyle}"/>
+                <Button x:Name="BrowseButton" Content="Modrinth" Style="{StaticResource ActiveSourceButtonStyle}" Margin="0,0,8,0" Click="BrowseButton_Click"/>
+            </StackPanel>
+
+            <!-- Search + Sort -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Margin="16,0">
+                <ComboBox Width="140" SelectedIndex="0" Background="#FF2A2A2A" Foreground="White" BorderBrush="#FF444444">
+                    <ComboBoxItem Content="Relevance"/>
+                    <ComboBoxItem Content="Downloads"/>
+                    <ComboBoxItem Content="Updated"/>
+                </ComboBox>
+                <TextBox PlaceholderText="Search Mods" Width="220" Background="#FF2A2A2A" Foreground="White" BorderBrush="#FF444444"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- MAIN CONTENT -->
+        <Grid Margin="0,60,0,0">
+            <Grid.ColumnDefinitions>
+
+                <!-- Sidebar -->
+                <ColumnDefinition Width="*"/>
+                <!-- BrowseView -->
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="BrowseContentContainer">
+                
+                <ScrollViewer x:Name="BrowseView"
+                              ViewChanged="ScrollViewer_ViewChanged"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                    <ItemsRepeater ItemsSource="{Binding Mods}" Margin="16">
+                        
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ModrinthMod">
+                                <Grid Style="{StaticResource ModCardStyle}" Tapped="ModItem_Tapped" Tag="{Binding}">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                            <VisualState x:Name="PointerOver">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="#FF252525"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform x:Name="BrowseTransform" X="0"/>
+                                    </Grid.RenderTransform>
+                                    <!-- Icon -->
+                                    <Border Grid.Column="0" Width="64" Height="64" CornerRadius="12" Margin="0,0,12,0"
+                    Background="#FF2A2A2A" BorderBrush="#FF444444" BorderThickness="1">
+                                        <Image Source="{Binding IconUrl}" Stretch="UniformToFill"/>
+                                    </Border>
+
+                                    <!-- Info -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
+                                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="White" FontSize="15"/>
+                                        <TextBlock Text="{Binding Author, FallbackValue='by Unknown'}" Foreground="#FF60A5FA" FontSize="12"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="#FF9CA3AF" FontSize="12" TextWrapping="Wrap" MaxLines="2"/>
+                                        <TextBlock Text="{Binding VersionsText}" Foreground="#FF9CA3AF" FontSize="11"/>
+                                    </StackPanel>
+
+                                    <!-- Loader Badges -->
+                                    <ItemsRepeater Grid.Column="2" ItemsSource="{Binding Loaders}" VerticalAlignment="Center">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Horizontal" Spacing="6"/>
+                                        </ItemsRepeater.Layout>
+                                        <ItemsRepeater.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#FF2A2A2A" CornerRadius="6" Padding="6,3" BorderBrush="#FF444444" BorderThickness="1">
+                                                    <TextBlock Text="{Binding}" Foreground="#FF60A5FA" FontSize="10" FontWeight="SemiBold"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsRepeater.ItemTemplate>
+                                    </ItemsRepeater>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- MANAGE MODS VIEW -->
+            <Grid x:Name="ManageContentContainer" Visibility="Collapsed">
+                <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ItemsRepeater ItemsSource="{Binding InstalledMods}" Margin="16">
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ModrinthMod">
+                                <Grid Style="{StaticResource ModCardStyle}" 
+      Margin="0,8" 
+      Tapped="ManageModItem_Tapped">
+                                    <!-- Tapped -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Icon -->
+                                    <Border Grid.Column="0" Width="64" Height="64" CornerRadius="12" Margin="0,0,12,0"
+                                Background="#FF2A2A2A" BorderBrush="#FF444444" BorderThickness="1">
+                                        <Image Source="{Binding IconUrl}" Stretch="UniformToFill"/>
+                                    </Border>
+                                    <!-- Info -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="4">
+                                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="White" FontSize="15"/>
+                                        <TextBlock Text="{Binding Author, FallbackValue='by Unknown'}" Foreground="#FF60A5FA" FontSize="12"/>
+                                        <TextBlock Text="{Binding InstalledVersion}" Foreground="#22C55E" FontSize="12" FontWeight="SemiBold"/>
+                                        <TextBlock Text="{Binding Description}" Foreground="#FF9CA3AF" FontSize="12" TextWrapping="Wrap" MaxLines="2"/>
+                                    </StackPanel>
+                                    <!-- Toggle Button -->
+                                    <ToggleButton Grid.Column="2" IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                  VerticalAlignment="Center"
+                                                  Width="50" Height="28"
+                                                  Background="#FF2A2A2A"
+                                                  BorderBrush="#FF444444"
+                                                  BorderThickness="1"
+                                                  ToolTipService.ToolTip="Bật / Tắt Mod"
+                                                  CornerRadius="14"/>
+                                    <Button Grid.Column="3"
+                                            Margin="8,0,0,0"
+                                            Width="36" Height="36"
+                                            Background="Transparent"
+                                            BorderBrush="#FF444444"
+                                            BorderThickness="1"
+                                            CornerRadius="8"
+                                            Click="DeleteModButton_Click"
+                                            ToolTipService.ToolTip="Xóa mod"
+                                            Padding="0">
+                                        <FontIcon Glyph="&#xE74D;" 
+                                                  FontSize="16" 
+                                                  Foreground="#FF6B7280"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+            <!-- BROWSE VIEW -->
+            <Border x:Name="SidebarPanel"
+                     Width="260"
+                     Background="#FF1A1A1A"
+                     BorderBrush="#FF2A2A2A"
+                     BorderThickness="0,0,1,0"
+                     HorizontalAlignment="Left">
+
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="SidebarTransform" X="-260"/>
+                </Border.RenderTransform>
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Spacing="16" Margin="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Select Version" Foreground="#FF9CA3AF" FontWeight="SemiBold"/>
+                            <Button Content="Clear Filters" Background="#FFDC2626" Foreground="White"
+     HorizontalAlignment="Stretch" Padding="12,8" CornerRadius="8"
+     Click="ClearFilters_Click"/>
+                            <Button x:Name="VersionButton" Background="#FF2A2A2A" Foreground="White"
+     BorderBrush="#FF444444" BorderThickness="1" CornerRadius="8"
+     Padding="12,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+     Click="VersionButton_Click">
+                                <Button.Content>
+                                    <Binding Path="VM.SelectedMinecraftVersion" FallbackValue="Tất cả phiên bản" Mode="OneWay"/>
+                                </Button.Content>
+                                <Button.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Foreground="White" Margin="0,0,8,0"/>
+                                    </DataTemplate>
+                                </Button.ContentTemplate>
+                            </Button>
+                        </StackPanel>
+
+                        <ComboBox x:Name="LoaderFilter" PlaceholderText="All Loaders"
+   Background="#FF2A2A2A" Foreground="White" BorderBrush="#FF444444"
+   BorderThickness="1" CornerRadius="8" SelectedIndex="0"
+   SelectionChanged="LoaderFilter_SelectionChanged" Margin="0,8,0,0">
+                            <ComboBoxItem Content="All Loaders" Tag=""/>
+                            <ComboBoxItem Content="Fabric" Tag="fabric"/>
+                            <ComboBoxItem Content="Forge" Tag="forge"/>
+                            <ComboBoxItem Content="NeoForge" Tag="neoforge"/>
+                            <ComboBoxItem Content="Quilt" Tag="quilt"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="1"
+   VerticalScrollBarVisibility="Auto"
+   Padding="16,0,16,16">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Categories:" Foreground="#FF9CA3AF" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                            <Button Content="Adventure" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Cursed" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Decoration" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Economy" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Equipment" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Food" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Game Mechanics" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Library" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Magic" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Management" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Minigame" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Mobs" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Optimization" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Social" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Storage" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                            <Button Content="Technology" Style="{StaticResource FilterButtonStyle}" Click="CategoryButton_Click"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+        </Grid>
+
+
+
+        <!-- Thông báo nổi (toast) -->
+        <Border
+            x:Name="NotificationBorder"
+            Background="#FF1E1E1E"
+            BorderBrush="#FF3A3A3A"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="16"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0,0,24,24"
+            Visibility="Collapsed"
+            MaxWidth="360">
+            <StackPanel Spacing="6">
+                <TextBlock x:Name="NotificationTitle" Text="Tải thành công!" FontWeight="SemiBold" Foreground="#22C55E"/>
+                <TextBlock x:Name="NotificationMessage" Foreground="#E5E7EB" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

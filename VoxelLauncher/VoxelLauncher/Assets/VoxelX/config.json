@@ -1,0 +1,23 @@
+{
+  "modules": {
+    "resourcepacks": {
+      "enabled": true,
+      "x": 10,
+      "y": 10
+    },
+    "shaders": {
+      "enabled": true,
+      "x": 10,
+      "y": 60
+    },
+    "fps": {
+      "enabled": true,
+      "x": 10,
+      "y": 110
+    }
+  },
+  "ui": {
+    "theme": "dark",
+    "corner_button": true
+  }
+}

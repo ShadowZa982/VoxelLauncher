@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>VoxelLauncher</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <WinUISDKReferences>false</WinUISDKReferences>
+    <Nullable>enable</Nullable>
+	  <WindowsPackageType>None</WindowsPackageType>
+	  <AssemblyVersion>1.0.0</AssemblyVersion>
+	  <FileVersion>1.0.0</FileVersion>
+	  <EnablePreviewMsixTooling>false</EnablePreviewMsixTooling>
+	  <AppxPackage>false</AppxPackage>
+	  <DeployAppxPackage>false</DeployAppxPackage>
+	  <GenerateAppInstallerFile>false</GenerateAppInstallerFile>
+	  <SelfContained>true</SelfContained>
+	  <PublishSingleFile>false</PublishSingleFile>
+	  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	  <ApplicationIcon>Assets\serve_logor.ico</ApplicationIcon>
+	  <EnableMsixTooling>false</EnableMsixTooling>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.9.2" />
+    <PackageReference Include="Clowd.Squirrel" Version="2.11.1" />
+    <PackageReference Include="CmlLib.Core" Version="4.0.6" />
+    <PackageReference Include="CmlLib.Core.Auth.Microsoft" Version="3.3.0" />
+    <PackageReference Include="CmlLib.Core.Installer.Forge" Version="1.1.0" />
+    <PackageReference Include="CmlLib.Core.Installer.NeoForge" Version="4.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="DotNetAutoUpdate" Version="1.0.4" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3595.46" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.6901" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="XboxAuthNet" Version="3.0.5" />
+    <PackageReference Include="XboxAuthNet.Game" Version="1.4.0" />
+    <PackageReference Include="XboxAuthNet.Game.Msal" Version="0.1.2" />
+  </ItemGroup>
+
+    <!-- Publish Properties -->
+  <PropertyGroup>
+    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">False</PublishReadyToRun>
+    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
+    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">False</PublishTrimmed>
+  </PropertyGroup>
+</Project>
