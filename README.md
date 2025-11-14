@@ -172,7 +172,7 @@
 
 ## ⚖️ Giấy Phép & Góp Ý
 
-- **License:** Apache 2.0 
+- **License:** [Apache 2.0](https://github.com/ShadowZa982/VoxelLauncher/tree/master?tab=Apache-2.0-1-ov-file)
 - **Góp ý:** Fork repo → Submit Pull Request hoặc mở Issue  
 - **Đóng góp:** chia sẻ cùng bạn bè!
 ---
