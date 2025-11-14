@@ -160,7 +160,7 @@
 
 ---
 
-Xác nhận ứng dụng
+## Xác nhận ứng dụng
 <img width="1590" height="650" alt="{014DFFDE-7195-4341-AF41-6C5783D02A12}" src="https://github.com/user-attachments/assets/67010475-3172-4786-a1c3-74d22c76ac3c" />
 
 Ứng dụng đã được xác nhận từ Mojang Enforcement về đáp ứng các tiêu chí cần thiết, đã được chấp thuận và thêm vào danh sách cho phép.
