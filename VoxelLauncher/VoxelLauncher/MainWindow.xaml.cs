@@ -1,3 +1,4 @@
+//hello các cháu :)
 using AutoUpdaterDotNET;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
@@ -1621,3 +1622,4 @@ namespace VoxelLauncher
         }
     }
 }
+
