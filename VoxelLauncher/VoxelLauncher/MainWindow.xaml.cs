@@ -1,4 +1,4 @@
-﻿using AutoUpdaterDotNET;
+using AutoUpdaterDotNET;
 using CmlLib.Core;
 using CmlLib.Core.Auth;
 using CmlLib.Core.Auth.Microsoft;
@@ -61,7 +61,7 @@ namespace VoxelLauncher
         private readonly AppViewModel _vm = new();
         private MSession? _session;
         private readonly List<string> _logCache = new();
-        private const string CLIENT_ID = "562d66cb-9c20-49c3-bdd8-3e101f79a8ab";
+        private const string CLIENT_ID = "Azune Microsoft ID App";
         private const string MS_ACCOUNTS_FILE = "ms_accounts.json";
         private readonly Button[] _tabButtons;
         private XamlRoot? _sharedXamlRoot;
