@@ -181,13 +181,13 @@ Tuân thủ theo nguyên tắc [**Minecraft Usage Guidelines**](https://www.mine
 ## ⚖️ Giấy Phép & Góp Ý
 
 - **License:** [Apache 2.0](https://github.com/ShadowZa982/VoxelLauncher/blob/master/LICENSE.txt)
-- **Góp ý:** Fork repo → Submit Pull Request hoặc mở Issue  
+- **Góp ý:** Submit Pull Request hoặc mở Issue  
 - **Đóng góp:** chia sẻ cùng bạn bè!
 ---
 
 ## Lưu Ý
--  Nếu bạn tải phiên bản từ bất kỳ nguồn nào mà không phải từ trang chính [VoxelLauncher Github](https://github.com/ShadowZa982/VoxelLauncher) này hoặc website tạm thời [VoxelLauncher Website](https://voxellauncher.xo.je) và [Discord FoxStudio](https://discord.gg/AbQHGuPKen) thì chúng tôi sẽ không chịu trách nghiệm xử lý nếu những phiên bản đó có chứa mã độc và tải ở trang web không chính thức.
--  Chỉ tải duy nhất trên [VoxelLauncher Github](https://github.com/ShadowZa982/VoxelLauncher) này hoặc website tạm thời [VoxelLauncher Website](https://voxellauncher.xo.je) và [Discord FoxStudio](https://discord.gg/AbQHGuPKen)
+-  Nếu bạn tải phiên bản từ bất kỳ nguồn nào mà không phải từ trang chính [VoxelLauncher Github](https://github.com/ShadowZa982/VoxelLauncher) này hoặc website tạm thời [VoxelLauncher Website](https://www.foxstudio.site/) và [Discord FoxStudio](https://discord.gg/AbQHGuPKen) thì chúng tôi sẽ không chịu trách nghiệm xử lý nếu những phiên bản đó có chứa mã độc và tải ở trang web không chính thức.
+-  Chỉ tải duy nhất trên [VoxelLauncher Github](https://github.com/ShadowZa982/VoxelLauncher) này hoặc website tạm thời [VoxelLauncher Website](https://www.foxstudio.site/) và [Discord FoxStudio](https://discord.gg/AbQHGuPKen)
 ---
 
 
