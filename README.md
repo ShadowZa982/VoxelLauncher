@@ -49,7 +49,11 @@
 - **Danh sách phiên bản:** Lấy dữ liệu từ Mojang (release + snapshot)  
 - **Tải song song:** Dùng `GameInstaller` để tăng tốc tải assets, libraries, client  
 - **Java tự động:** Phát hiện Java 8+, yêu cầu tối thiểu Java 17  
-- **Tùy chỉnh RAM:** Sửa `-Xmx`, `JVM Args` trong Settings  
+- **Tùy chỉnh RAM:** Sửa `-Xmx`, `JVM Args` trong Settings
+
+  <img width="1149" height="717" alt="{C7EFB3F2-7137-4BD0-A0E3-27C03191D021}" src="https://github.com/user-attachments/assets/73d31c4b-db5d-4e9c-b474-166bb8c92129" />
+  <img width="1144" height="714" alt="{BED57264-8892-4480-8242-0A0632FA4CA0}" src="https://github.com/user-attachments/assets/3e8f43ae-07e5-4e78-aff5-b9acc5994084" />
+
 
 ---
 
